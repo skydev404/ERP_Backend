@@ -27,4 +27,4 @@ artifacts:
   files:
     - '**/*'
   base-directory: ./bin/Release/netcoreapp3.1/linux-x64/publish/
-  discard-paths: no
+  discard-paths: yes
