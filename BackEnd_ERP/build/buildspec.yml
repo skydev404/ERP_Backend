@@ -27,5 +27,5 @@ artifacts:
   files:
     - '**/*'
   base-directory: ./API/build
-  discard-paths: no
+  discard-paths: yes
 #   base-directory: ./API/bin/Release/netcoreapp3.1/linux-x64/publish/
