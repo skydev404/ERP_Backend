@@ -16,9 +16,13 @@ namespace BackEnd_ERP
     {
         public static void Main(string[] args)
         {
+            string aspnetcore_environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            Console.WriteLine($"env: {aspnetcore_environment}");
+            string configFilePath = string.Format("appsettings.{0}.json", aspnetcore_environment);
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile(configFilePath, optional: true, reloadOnChange: true)
                 .Build();
 
             LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("NLog"));

@@ -17,14 +17,6 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "API": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:40404;http://localhost:43322",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "BackEnd_ERP": {
       "commandName": "Project",
       "launchBrowser": true,
