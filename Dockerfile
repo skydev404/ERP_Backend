@@ -1,22 +1,28 @@
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+WORKDIR /app
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS http://*:5000
+EXPOSE 5000
+
 # syntax=docker/dockerfile:1
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+ARG Configuration=Release
 WORKDIR /app
-
-COPY ./BackEnd_ERP.sln ./
-
-# Copy csproj and restore as distinct layers
-COPY BackEnd_ERP/*.csproj ./
-COPY Application/*.csproj ./
-COPY Domain/*.csproj ./
-COPY Infrastructure/*.csproj ./
+COPY *.sln ./
+COPY BackEnd_ERP/BackEnd_ERP.csproj BackEnd_ERP/
+COPY Application/Application.csproj Application/
+COPY Domain/Domain.csproj Domain/
+COPY Infrastructure/Infrastructure.csproj Infrastructure/
 RUN dotnet restore
+COPY . .
+WORKDIR /BackEnd_ERP
+RUN dotnet build -c $Configuration -o /app
 
-# Copy everything else and build
-COPY ../engine/examples ./
-RUN dotnet publish -c Release -o out
+FROM build-env AS publish
+ARG Configuration=Release
+RUN dotnet publish -c $Configuration -o /app
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:3.1
+FROM base AS final
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "API.dll"]
