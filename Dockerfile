@@ -2,7 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 WORKDIR /app
 
-COPY ./BackEnd_ERP.sln ./NuGet.config  ./
+COPY ./BackEnd_ERP.sln ./
 
 # Copy csproj and restore as distinct layers
 COPY BackEnd_ERP/*.csproj ./
