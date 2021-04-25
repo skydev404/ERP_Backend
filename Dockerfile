@@ -5,10 +5,10 @@ WORKDIR /app
 COPY ./BackEnd_ERP.sln ./NuGet.config  ./
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./BackEnd_ERP
-COPY *.csproj ./Application
-COPY *.csproj ./Domain
-COPY *.csproj ./Infrastructure
+COPY BackEnd_ERP/*.csproj ./
+COPY Application/*.csproj ./
+COPY Domain/*.csproj ./
+COPY Infrastructure/*.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
