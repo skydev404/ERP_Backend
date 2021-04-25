@@ -9,18 +9,18 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 ARG Configuration=Release
 WORKDIR /app
 COPY *.sln ./
-COPY BackEnd_ERP/BackEnd_ERP.csproj BackEnd_ERP/
+COPY BackEnd_ERP/API.csproj BackEnd_ERP/
 COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
 COPY Infrastructure/Infrastructure.csproj Infrastructure/
 RUN dotnet restore
 COPY . .
 WORKDIR /BackEnd_ERP
-RUN dotnet build -c $Configuration -o /app
+RUN dotnet build -c $Configuration -o /app/BackEnd_ERP
 
 FROM build-env AS publish
 ARG Configuration=Release
-RUN dotnet publish -c $Configuration -o /app
+RUN dotnet publish -c $Configuration -o /app/BackEnd_ERP
 
 FROM base AS final
 WORKDIR /app
