@@ -7,8 +7,8 @@ EXPOSE 5000
 # syntax=docker/dockerfile:1
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 ARG Configuration=Release
-WORKDIR /app
 ENV ASPNETCORE_ENVIRONMENT=Development
+WORKDIR /app
 COPY *.sln ./
 COPY BackEnd_ERP/API.csproj BackEnd_ERP/
 COPY Application/Application.csproj Application/
