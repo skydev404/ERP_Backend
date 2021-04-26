@@ -10,7 +10,7 @@ ARG Configuration=Release
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
-COPY *.sln ./
+#COPY *.sln ./
 COPY BackEnd_ERP/API.csproj BackEnd_ERP/
 COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
@@ -23,11 +23,11 @@ COPY Application/ Application/
 COPY Domain/ Domain/
 COPY Infrastructure/ Infrastructure/
 WORKDIR /app/BackEnd_ERP
-RUN dotnet build -c $Configuration --no-restore -o /app
+RUN dotnet build -c $Configuration --no-restore
 
 FROM build-env AS publish
 ARG Configuration=Release
-RUN dotnet publish -c $Configuration -o /app
+RUN dotnet publish -c $Configuration --no-build -o /app
 
 FROM base AS final
 WORKDIR /app

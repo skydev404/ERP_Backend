@@ -1,2 +1,7 @@
-bin/
-obj/
+**/bin/
+**/obj/
+**/out/
+
+# files
+Dockerfile*
+**/*.md
