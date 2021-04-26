@@ -8,6 +8,7 @@ EXPOSE 5000
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 ARG Configuration=Release
 WORKDIR /app
+ENV ASPNETCORE_ENVIRONMENT=Development
 COPY *.sln ./
 COPY BackEnd_ERP/API.csproj BackEnd_ERP/
 COPY Application/Application.csproj Application/
@@ -15,12 +16,13 @@ COPY Domain/Domain.csproj Domain/
 COPY Infrastructure/Infrastructure.csproj Infrastructure/
 RUN dotnet restore
 COPY . .
-WORKDIR /BackEnd_ERP
-RUN dotnet build -c $Configuration -o /app/BackEnd_ERP
+WORKDIR /app/BackEnd_ERP
+RUN echo $($Configuration)
+RUN dotnet build -c $Configuration -o /app
 
 FROM build-env AS publish
 ARG Configuration=Release
-RUN dotnet publish -c $Configuration -o /app/BackEnd_ERP
+RUN dotnet publish -c $Configuration -o /app
 
 FROM base AS final
 WORKDIR /app
